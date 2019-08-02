@@ -13,6 +13,7 @@ function adicionar() {
     var nome = campoNome.value;
     valido = validar(nome, campoNome)
     if (valido == false) {
+        
         // mostrar feedback
         return;
     }
