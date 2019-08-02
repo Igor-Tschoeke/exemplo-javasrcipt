@@ -21,7 +21,7 @@ function adicionarEditar() {
 function adicionar() {
     var campoNome = document.getElementById('nome', 'mt-3');
     var nome = campoNome.value;
-    valido = validar(nome, campoNome)
+    valido = validarCampo(nome, campoNome)
     if (valido == false) {
 
         // mostrar feedback
@@ -116,7 +116,7 @@ function limparCampos(campo) {
     campo.focus();
 }
 
-function validar(nome, campo) {
+function validarCampo(nome, campo) {
     texto = '';
     if (nome.trim().length == 0) {
         texto = 'Nome deve ser preenchido';
@@ -159,6 +159,9 @@ function validar(nome, campo) {
 }
 
 function validar{
+    var campo = document.getElementById('nome');
+    var nome = campo.value;
+    return validarCampo(nome, campo);
 
 }
 
@@ -171,4 +174,4 @@ function validar{
 
 //string,int ! int, string
 
-//sobrecarga de método
+//sobrecarga de método ==> metodos iguais com parametros diferentes
