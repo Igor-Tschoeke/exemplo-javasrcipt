@@ -30,6 +30,8 @@ function adicionar() {
     elementoBotaoApagar.innerHTML = "Apagar";
     elementoBotaoApagar.classList.add("btn", "btn-danger")
 
+    elementoBotaoApagar.onclick = apagar;
+
     elementoTdAcao.appendChild(elementoBotaoApagar);
     elementoTdAcao.appendChild(elementoBotaoEditar);
 
@@ -45,6 +47,15 @@ function adicionar() {
 
 function apagar() {
 
+var confirmacao = confirm('Deseja realmente apagar?');
+if(confirmacao == true){
+var elemento = event.target;
+var elementoTd = elemento.parentNode;
+var elementoTr = elementoTd.parentNode;
+var elementoBody = elementoTr.parentNode;
+elementoBody.removeChild(elementoTr);
+console.log(elemento)
+}
 }
 
 function preencherCampo() {
@@ -66,5 +77,43 @@ function limparCampos(campo) {
 }
 
 function validar(nome, campo) {
+    texto = '';
+    if (nome.trim().length == 0) {
+        texto = 'Nome deve ser preenchido';
+    }
+    else if (nome.trim().length < 3) {
+        texto = 'Nome deve ter no minimo 3 caracteres';
+    }
+    else if (nome.trim().length > 20) {
+        texto = 'Nome deve ter no máximo 20 caracteres';
+    }
+
+    var elementos = document.getElementsByClassName('span-erro');
+    for (var i = 0; i < elementos.length; i++) {
+        var elemento = elementos[i];
+        var elementoPai = elemento.parentNode;
+        elementoPai.removeChild(elemento);
+    }
+
+    if (texto != '') {
+        campo.classList.add('border-danger', 'text-danger');
+        var spanErro = document.createElement('span');
+        spanErro.innerHTML = texto;
+        spanErro.classList.add('span-erro', 'text-danger', 'font-weight-bold')
+
+
+
+        var elementoPaiDoInput = campo.parentNode;
+        elementoPaiDoInput.appendChild(spanErro);
+
+
+
+
+        campo.focus();
+        return false;
+    }
+
+    return true;
+
 
 }
