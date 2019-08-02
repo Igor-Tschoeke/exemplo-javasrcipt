@@ -1,22 +1,35 @@
 tarefas = [];
+var indiceParaEditar = -1;
 
 function salvar(e) {
     //13 é codigo do enter no no teclado
     if (e.keyCode == 13) {
-        adicionar();
+        adicionarEditar();
     }
 }
 
 
+function adicionarEditar() {
+    if (indiceParaEditar == -1) {
+        adicionar();
+    }
+    else {
+        editar();
+    }
+}
+
 function adicionar() {
-    var campoNome = document.getElementById("nome");
+    var campoNome = document.getElementById('nome', 'mt-3');
     var nome = campoNome.value;
     valido = validar(nome, campoNome)
     if (valido == false) {
-        
+
         // mostrar feedback
         return;
     }
+
+
+
     var elementoTr = document.createElement("tr");
     var elementoIdNome = document.createElement("td");
     elementoIdNome.innerHTML = nome;
@@ -26,15 +39,16 @@ function adicionar() {
     var elementoBotaoEditar = document.createElement("button");
     elementoBotaoEditar.innerHTML = "Editar";
     elementoBotaoEditar.classList.add("btn", "btn-primary", "mr-2");
+    elementoBotaoEditar.onclick = preencherCampo;
 
     var elementoBotaoApagar = document.createElement("button");
     elementoBotaoApagar.innerHTML = "Apagar";
-    elementoBotaoApagar.classList.add("btn", "btn-danger")
+    elementoBotaoApagar.classList.add("btn", "btn-danger", "mr-1")
 
     elementoBotaoApagar.onclick = apagar;
 
-    elementoTdAcao.appendChild(elementoBotaoApagar);
     elementoTdAcao.appendChild(elementoBotaoEditar);
+    elementoTdAcao.appendChild(elementoBotaoApagar);
 
     elementoTr.appendChild(elementoIdNome);
     elementoTr.appendChild(elementoTdAcao);
@@ -48,22 +62,47 @@ function adicionar() {
 
 function apagar() {
 
-var confirmacao = confirm('Deseja realmente apagar?');
-if(confirmacao == true){
-var elemento = event.target;
-var elementoTd = elemento.parentNode;
-var elementoTr = elementoTd.parentNode;
-var elementoBody = elementoTr.parentNode;
-elementoBody.removeChild(elementoTr);
-console.log(elemento)
-}
+    var confirmacao = confirm('Deseja realmente apagar?');
+    if (confirmacao == true) {
+        var elemento = event.target;
+        var elementoTd = elemento.parentNode;
+        var elementoTr = elementoTd.parentNode;
+        var elementoBody = elementoTr.parentNode;
+
+        var elementoTdNome = elementoTr.childNodes[0];
+        var nome = elementoTdNome.innerHTML;
+        tarefas.pop(nome);
+        atualizarQuantidade();
+
+
+        elementoBody.removeChild(elementoTr);
+    }
 }
 
 function preencherCampo() {
-
+    var elementoBotaoEditar = event.target;
+    var elementoTr = elementoBotaoEditar.parentNode.parentNode;
+    var elementoTdNome = elementoTr.childNodes[0];
+    var nome = elementoTdNome.innerHTML;
+    indiceParaEditar = tarefas.indexOf(nome);
+    document.getElementById('nome').value = nome;
+    document.getElementById('nome').focus();
 }
 
 function editar() {
+    var nome = document.getElementById('nome').value;
+    tarefas[indiceParaEditar] = nome;
+
+    //atualizar tabela
+    var trs = document.getElementById('registros').childNodes;
+    var elementoTr = trs[indiceParaEditar];
+    elementoTr.childNodes[0].innerHTML = nome;
+
+    indiceParaEditar = -1;
+    document.getElementById('nome').value = '';
+    document.getElementById('nome').focus();
+
+    
 
 }
 
@@ -118,3 +157,18 @@ function validar(nome, campo) {
 
 
 }
+
+function validar{
+
+}
+
+// pulblic void teste(string nome, int numero){
+//
+//}
+//public void teste(int numero, string letra){  
+//
+// }
+
+//string,int ! int, string
+
+//sobrecarga de método

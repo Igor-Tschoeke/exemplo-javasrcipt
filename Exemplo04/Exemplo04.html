@@ -21,9 +21,9 @@
 <body>
     <div class="container-fluid">
         <div class="form-group">
-            <label for="nome">Nome</label>
+            <label for="nome" class="nome">Nome</label>
             <input type="text" id="nome" autofocus="true" onkeypress="salvar(event)" class="form-control" >
-            <button onclick="adicionar()" class="btn btn-success" class="adicionar">Adicionar</button>
+            <button onclick="adicionarEditar()" class="btn btn-success mt-3" class="adicionar">Adicionar</button>
         </div>
 
 
@@ -39,7 +39,7 @@
                 <tbody id="registros"></tbody>
             </table>
 
-            <h4>Quantidade:</h4>
+            <h4 class="quantidade">Quantidade:</h4>
             <span class="font-weight-bold" id="quantidade"></span>
 
         </div>
